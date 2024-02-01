@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            align-items: center;
+            padding: 0 20px;
+            background-color: #509b41;
+            color: #ffffff;
+        }
+
+        .cart-icon {
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .logout-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        h1{
+            margin-left: 40%;
+        }
+
+        .product-container {
+            max-width: 300px;
+            margin: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .product-container:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: 200px; /* Increased height */
+            border-radius: 10px 10px 0 0;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        h4 {
+            margin-top: 0;
+            color: #343a40;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .discount-info {
+            font-size: 0.9rem;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+
+        .brand-color-info {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-add-to-cart,
+        .btn-add-to-wishlist {
+            width: 48%;
+        }
+
+        .heart-symbol {
+            font-size: 3rem;
+            color: rgb(168, 162, 162);
+            cursor: pointer;
+        }
+        .heart-symbol:hover{
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1 style="text-align: center;">Products We Offer</h1>
+        <div>
+            <span class="cart-icon" onclick="goToCartPage()">&#128722;</span>
+            <a href="/SignUp/signup.html" class="logout-link" onclick="logout()">Logout</a>
+        </div>
+        
+    </div>
+
+    <div class="container">
+        <div id="products-container" class="d-flex flex-wrap justify-content-around"></div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchProducts();
+        });
+
+        function fetchProducts() {
+            fetch("http://localhost:5454/api/admin/products/all")
+                .then(response => response.json())
+                .then(products => {
+                    displayProducts(products);
+                })
+                .catch(error => {
+                    console.error("Error fetching products:", error);
+                });
+        }
+
+        function displayProducts(products) {
+            const productsContainer = document.getElementById("products-container");
+
+            products.forEach(product => {
+                const productCard = createProductCard(product);
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-container", "shadow-sm");
+
+            productCard.innerHTML = `
+                <img class="product-image" src="${product.imageUrl}" alt="Product Image">
+                <div class="product-info">
+                    <h4>${product.title}</h4>
+                    <p class="product-price">
+                        <del>$${product.price}</del> $${product.discountedPrice}
+                    </p>
+                    <p class="discount-info">Discount: ${product.discountedPresent}% off</p>
+                    <p class="brand-color-info">${product.brand} - ${product.color}</p>
+                    <div class="btn-container">
+                        <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                        <span class="heart-symbol" onclick="addToWishlist()">&#10084;</span>
+                    </div>
+                </div>
+            `;
+
+            return productCard;
+        }
+
+        function addToWishlist() {
+            alert("Added to Wishlist!");
+        }
+
+        function goToCartPage() {
+            window.location.href = "cart.html";
+        }
+    </script>
+</body>
+
+</html>

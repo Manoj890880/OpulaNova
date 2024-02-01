@@ -1,0 +1,197 @@
+<!-- update.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #b89595;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #updateProductForm {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Update Product</h1> 
+
+    <!-- Form to update a product -->
+    <form id="updateProductForm">
+        <!-- Input fields for product details -->
+        <label for="title">Title:</label>
+        <input type="text" id="title" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description"></textarea>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" required>
+
+        <label for="discountedPrice">Discounted Price:</label>
+        <input type="number" id="discountedPrice" required>
+
+        <label for="discountPercent">Discount Percent:</label>
+        <input type="number" id="discountPercent" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" required>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand">
+
+        <label for="color">Color:</label>
+        <input type="text" id="color">
+
+        <!-- Add other input fields as needed -->
+
+        <!-- Hidden input field to store the product ID -->
+        <input type="hidden" id="productId" name="productId">
+
+        <button type="submit">Update Product</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Parse query parameters
+            const queryString = window.location.search.substring(1);
+            const params = new URLSearchParams(queryString);
+
+            // Get product details from query parameters
+            const productId = params.get('id');
+            const title = params.get('title');
+            const description = params.get('description');
+            const price = params.get('price');
+            const discountedPrice = params.get('discountedPrice');
+            const discountPercent = params.get('discountPercent');
+            const quantity = params.get('quantity');
+            const brand = params.get('brand');
+            const color = params.get('color');
+            // Add other details as needed
+
+            // Fill the form with product details
+            document.getElementById('productId').value = productId;
+            document.getElementById('title').value = title;
+            document.getElementById('description').value = description;
+            document.getElementById('price').value = price;
+            document.getElementById('discountedPrice').value = discountedPrice;
+            document.getElementById('discountPercent').value = discountPercent;
+            document.getElementById('quantity').value = quantity;
+            document.getElementById('brand').value = brand;
+            document.getElementById('color').value = color;
+            // Update other form fields accordingly
+
+            // Handle form submission
+            document.getElementById('updateProductForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                updateProduct();
+            });
+
+            function updateProduct() {
+                // Get updated product details from the form
+                const updatedTitle = document.getElementById('title').value;
+                const updatedDescription = document.getElementById('description').value;
+                const updatedPrice = document.getElementById('price').value;
+                const updatedDiscountedPrice = document.getElementById('discountedPrice').value;
+                const updatedDiscountPercent = document.getElementById('discountPercent').value;
+                const updatedQuantity = document.getElementById('quantity').value;
+                const updatedBrand = document.getElementById('brand').value;
+                const updatedColor = document.getElementById('color').value;
+                // Get other updated details as needed
+
+                // Construct updated product object
+                const updatedProduct = {
+                    id: productId,
+                    title: updatedTitle,
+                    description: updatedDescription,
+                    price: updatedPrice,
+                    discountedPrice: updatedDiscountedPrice,
+                    discountPercent: updatedDiscountPercent,
+                    quantity: updatedQuantity,
+                    brand: updatedBrand,
+                    color: updatedColor,
+                    // Add other details as needed
+                };
+
+                // Call the update API
+                fetch(`http://localhost:5454/api/admin/products/${productId}/update`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedProduct),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error updating product');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Product updated successfully:', data);
+                        alert("Product updated successfully")
+                        // Optionally, redirect to the product.html page or update the UI as needed
+                        window.location.href = "products.html";
+                    })
+                    .catch(error => {
+                        console.error('Error updating product:', error.message);
+                        alert('Error updating product. Please try again.');
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

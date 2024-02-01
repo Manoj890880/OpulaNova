@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        /* Add your beautiful CSS styles here */
+        /* For example: */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #userProfile {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #cartItems {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .cartItem {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cartItem img {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .cartItemDetails {
+            flex-grow: 1;
+        }
+
+        .cartItem button {
+            padding: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .cartItem button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .checkoutButton {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .checkoutButton:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .cartTotal {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="userProfile"></div>
+    <ul id="cartItems"></ul>
+    <div id="cartTotal" class="cartTotal"></div>
+    <button class="checkoutButton" onclick="checkout()" disabled>Checkout</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const jwt = localStorage.getItem("jwt");
+            console.log(jwt);
+
+            // Fetch user profile
+            fetch("http://localhost:5454/api/users/profile", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                },
+            })
+            .then((response) => response.json())
+            .then((user) => {
+                console.log(user);
+                const userId = parseInt(user.id);
+                // Display user profile information
+                console.log(userId);
+                document.getElementById("userProfile").innerHTML = `
+                    <p>User ID: ${user.id}</p>
+                    <p>Email: ${user.email}</p>
+                    <p>Name: ${user.firstName}</p>
+                `;
+
+                // Fetch cart items
+                fetch(`http://localhost:5454/api/cartItem/byUser/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${jwt}`,
+                    },
+                })
+                .then((response) => response.json())
+                .then((cartItems) => {
+                    // Display cart items
+                    const cartItemsList = document.getElementById("cartItems");
+                    const cartTotalElement = document.getElementById("cartTotal");
+                    const checkoutButton = document.querySelector(".checkoutButton");
+                    cartItemsList.innerHTML = "";
+                    let total = 0;
+
+                    cartItems.forEach((item) => {
+                        const listItem = document.createElement("li");
+                        listItem.className = "cartItem";
+
+                        listItem.innerHTML = `
+                            <div class="cartItemDetails">
+                                <img src="${item.product.imageUrl}" alt="${item.product.title}">
+                                <p>${item.product.title}</p>
+                                <p>Price: $${item.price}</p>
+                                <p>Size: ${item.size}</p>
+                            </div>
+                            <div>
+                                <button onclick="updateQuantity(${item.id}, ${item.price}, 'increase')">+</button>
+                                <span id="quantity-${item.id}">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, ${item.price}, 'decrease')" ${item.quantity === 1 ? 'disabled' : ''}>-</button>
+                                <button onclick="removeCartItem(${item.id}, ${item.price})">Remove</button>
+                            </div>
+                        `;
+
+                        cartItemsList.appendChild(listItem);
+                        total += item.price * item.quantity;
+                    });
+
+                    cartTotalElement.innerHTML = `Total: $${total.toFixed(2)}`;
+                    checkoutButton.disabled = cartItems.length === 0;
+                })
+                .catch((error) => console.error("Error fetching cart items:", error));
+            })
+            .catch((error) => console.error("Error fetching user profile:", error));
+        });
+
+        // Function to update quantity
+        window.updateQuantity = function (cartItemId, price, action) {
+            const quantityElement = document.getElementById(`quantity-${cartItemId}`);
+            const currentQuantity = parseInt(quantityElement.textContent);
+            const newQuantity = action === 'increase' ? currentQuantity + 1 : Math.max(1, currentQuantity - 1);
+
+            // Implement the logic to update quantity and total price
+            quantityElement.textContent = newQuantity;
+
+            // Update total price
+            updateTotalPrice(cartItemId, price, newQuantity);
+        };
+
+        // Function to remove cart item
+        window.removeCartItem = function (cartItemId, price) {
+            // Implement the logic to remove cart item and update the UI
+            console.log(`Remove cart item ${cartItemId}`);
+        };
+
+        // Function to update total price after changing quantity
+        function updateTotalPrice(cartItemId, price, newQuantity) {
+            // Implement the logic to update the total price
+            console.log(`Update total price for cart item ${cartItemId} - New Quantity: ${newQuantity}`);
+        }
+
+        // Function to handle checkout
+        function checkout() {
+            // Implement the logic for checkout
+            console.log("Checkout");
+        }
+    </script>
+</body>
+</html>

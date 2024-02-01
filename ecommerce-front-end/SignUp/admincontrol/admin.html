@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Admin Dashboard</title>
+    
+</head>
+<body>
+
+<div class="content">
+    <nav class="top-nav">
+        <button class="btn" id="open-sidebar">
+            <span class="icon-list text-primary h3"></span>
+        </button>
+        <div class="dropdown ml-auto">
+            <button class="btn">
+                <span class="icon-person text-primary h4"></span>
+                <span class="icon-chevron-down ml-1 small"></span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/index.html">Logout</a>
+                <a class="dropdown-item" href="#">Settings</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="row">
+            <div class="col-md-6 col-lg-4">
+                <article class="card mb-4">
+                    <a href="products/products.html" class="d-flex align-items-center">
+                        <span class="icon-box h5"></span>
+                        <h1 class="ml-2">Products</h1>
+                    </a>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <article class="card mb-4">
+                    <a href="#" class="d-flex align-items-center">
+                        <span class="icon-person h5"></span>
+                        <h1 class="ml-2">Customers</h1>
+                    </a>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <article class="card mb-4">
+                    <a href="#" class="d-flex align-items-center">
+                        <span class="icon-person-check h5"></span>
+                        <h1 class="ml-2">Sellers</h1>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Add your additional content here -->
+        
+    </main>
+</div>
+
+</body>
+</html>
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+h1{
+    text-align: center;
+}
+.content {
+    margin-left: 0; /* Adjust as needed */
+}
+
+.top-nav {
+    background-color: #1960a8;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #d23a3a;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+.dropdown-item:hover {
+    background-color: #3c7dbd;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid #618182;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.3s;
+    background-color: #a9bccf;
+}
+
+.card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-list,
+.icon-person,
+.icon-chevron-down,
+.icon-box,
+.icon-person-check {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+</style>
