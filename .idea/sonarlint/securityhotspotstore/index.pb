@@ -13,3 +13,5 @@ i
 9src/main/java/com/resel/ecommerce/config/JwtProvider.java,2/d/2d94772bf0d215060b657c33ce6abb7960d78520
 j
 :src/main/java/com/resel/ecommerce/config/JwtValidator.java,7/c/7c15a0358a0cf8807bcd9b83264cbae7985fcff4
+g
+7src/main/java/com/resel/ecommerce/config/AppConfig.java,0/d/0d870d72f3a326b31cf1f4754499880a2bd0b21d

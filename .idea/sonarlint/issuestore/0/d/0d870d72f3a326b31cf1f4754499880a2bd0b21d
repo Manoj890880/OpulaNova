@@ -1,0 +1,16 @@
+
+C
+java:S1604"(Make this anonymous inner class a lambda(ŞÁğøÿÿÿÿ
+B
+java:S1602",Remove useless curly braces around statement(¹ôÜÿ
+G
+java:S1602*",Remove useless curly braces around statement(ĞÈÏÎıÿÿÿÿ
+Š
+java:S1128
+"oRemove this unused import 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity'.(ŸÜÑıÿÿÿÿ
+v
+java:S1128"[Remove this unused import 'org.springframework.security.config.http.SessionCreationPolicy'.(‚ÌÎîüÿÿÿÿ
+…
+java:S1128"jRemove this unused import 'org.springframework.security.web.authentication.www.BasicAuthenticationFilter'.(çìóÕûÿÿÿÿ
+t
+java:S1128"YRemove this unused import 'org.springframework.web.cors.UrlBasedCorsConfigurationSource'.(µ²İûùÿÿÿÿ
