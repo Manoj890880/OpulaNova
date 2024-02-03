@@ -5,7 +5,6 @@ import com.resel.ecommerce.model.Order;
 import com.resel.ecommerce.response.ApiResponse;
 import com.resel.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +26,7 @@ public class AdminOrderController {
     @GetMapping("/")
     public ResponseEntity<List<Order>> getAllOrdersHandler() {
         List<Order> orders = orderService.getAllOrders();
-        return new ResponseEntity<List<Order>>(orders, HttpStatus.CREATED);
+        return new ResponseEntity<>(orders, HttpStatus.CREATED);
 
     }
 

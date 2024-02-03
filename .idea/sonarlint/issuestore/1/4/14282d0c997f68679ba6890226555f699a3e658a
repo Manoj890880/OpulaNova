@@ -1,0 +1,11 @@
+
+o
+java:S2293-"YReplace the type specification in this constructor call with the diamond operator ("<>").(∏äüµ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(ÍÊƒﬁ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(ÍÊƒﬁ
+õ
+java:S1130+"ÑRemove the declaration of thrown exception 'com.resel.ecommerce.exception.UserException', as it cannot be thrown from method's body.(§ùœ–
+û
+java:S1130+"áRemove the declaration of thrown exception 'com.resel.ecommerce.exception.ProductException', as it cannot be thrown from method's body.(§ùœ–

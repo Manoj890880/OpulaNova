@@ -33,7 +33,7 @@ public class AdminProductController {
     @PostMapping("/create")
     public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest req){
         Product product = productService.createProduct(req );
-        return new ResponseEntity<Product>(product, HttpStatus.CREATED);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{productId}/delete")
@@ -42,21 +42,21 @@ public class AdminProductController {
         ApiResponse response = new ApiResponse();
         response.setMessage("Product deleted successfully");
         response.setStatus(true);
-        return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> findAllProducts(){
 //        I have changed this implementation as it was List<Product> products = productService.findAllProducts();
         List<Product> products = productRepository.findAll();
-        return new ResponseEntity<List<Product>>(products, HttpStatus.CREATED);
+        return new ResponseEntity<>(products, HttpStatus.CREATED);
     }
 
     @PutMapping("/{productId}/update")
     public ResponseEntity<Product> updateProduct(@RequestBody Product req,
                                                   @PathVariable Long productId) throws ProductException {
         Product product = productService.updateProduct(productId, req);
-        return new ResponseEntity<Product>(product, HttpStatus.CREATED);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @PostMapping("/creates")

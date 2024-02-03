@@ -1,0 +1,9 @@
+
+X
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄÞ
+M
+java:S1854Q"8Remove this useless assignment to local variable "cart".(¶–Å_
+>
+java:S1481Q")Remove this unused "cart" local variable.(¶–Å_
+ 
+java:S1130`"„Remove the declaration of thrown exception 'com.resel.ecommerce.exception.UserException', as it cannot be thrown from method's body.(˜Óð‘ùÿÿÿÿ

@@ -50,7 +50,7 @@ public class OrderController {
             throws UserException {
         User user = userService.findUserProfileByJwt(jwt);
         List<Order> orders = orderService.usersOrderHistory(user.getId());
-        return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
     @GetMapping("/{id}")
         public ResponseEntity<Order> findOrderById(@PathVariable("id") Long orderId,
@@ -58,7 +58,7 @@ public class OrderController {
         User user = userService.findUserProfileByJwt(jwt);
 
         Order order = orderService.findOrderById(orderId);
-        return new ResponseEntity<Order>(order, HttpStatus.OK);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
 

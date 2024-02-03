@@ -1,0 +1,15 @@
+
+t
+java:S22932"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ìé¾æúÿÿÿÿ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+S
+java:S1854."8Remove this useless assignment to local variable "user".(Ïôõİÿÿÿÿÿ
+
+java:S1130-"‡Remove the declaration of thrown exception 'com.resel.ecommerce.exception.ProductException', as it cannot be thrown from method's body.(¤ÏĞ
+D
+java:S1481.")Remove this unused "user" local variable.(Ïôõİÿÿÿÿÿ
+l
+java:S1128"QRemove this unused import 'org.springframework.web.bind.annotation.RequestParam'.(Â¬À·ùÿÿÿÿ
